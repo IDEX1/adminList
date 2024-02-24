@@ -1,0 +1,104 @@
+/*---------font---------*/
+@font-face {
+    font-family:myfont ;
+    src: url(font/LexendExa-VariableFont_wght.ttf);
+}
+/*---------------------*/
+:root{
+
+
+}
+.contanier{
+    background-color: #535C91;
+    width: 200px;
+    height: 750px;
+    position: relative;
+    left: -10px;
+    top:-10px;
+    
+
+    
+}
+.BarGauche{
+    color: rgb(219, 225, 230);
+    padding-top: 20px;
+    padding-left: 20px;
+    font-size: 25px;
+    letter-spacing: 1px;
+    font-family:myfont;
+    font-weight: bold;
+  .BarGauche1{
+    margin-top: -5px;
+
+  } 
+}
+.BarList{
+    color: rgb(219, 225, 230);
+    left: 0px;
+    padding-top: 10px;
+    padding-left: 29px;
+    width: 180px;
+    font-size: 25px;
+    letter-spacing: 1px;
+    font-family:myfont;
+    position: relative;
+    background-color: #070F2B;
+    top: 80px;
+    margin-bottom: 60px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+.BarListSP{
+
+    color: rgb(219, 225, 230);
+    left: 0px;
+    padding-top: 10px;
+    padding-left: 29px;
+    width: 180px;
+    height: 60px;
+    font-size: 25px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-family:myfont;
+    position: relative;
+    background-color: #070F2B;
+    top: 150px;
+    cursor: pointer;
+    
+}
+.BarListSP span {
+    position: relative;
+    left:0px;
+    top: 10px;
+  }
+  
+table {
+  border-collapse: collapse;
+  width: 50%;
+  position: relative;
+  top: -570px;
+  left: 550px;
+}
+
+th,
+td {
+  border: 1px solid #1a1e37;
+  text-align: left;
+  padding: 8px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  font-family:myfont;
+}
+
+th {
+  background-color: #535C91;
+}
+
+td {
+  color: #070F2B;
+  background-color: white;
+}
+
