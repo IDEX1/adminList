@@ -67,6 +67,10 @@
     cursor: pointer;
     
 }
+.BarListSP:hover,.BarList:hover{
+  background-color: #182554;
+
+}
 .BarListSP span {
     position: relative;
     left:0px;

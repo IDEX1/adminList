@@ -1,8 +1,22 @@
+'use client';
+import React, { useState , Fragment} from "react";
 import  "./page.css";
+import data from "../app/data/data.json";
+import ReadyOnlyRow from "./componet/ReadOnlyRow";
+import EditableRow from "./componet/EditableRow";
+
  function Home(){
- 
+  const [DataTab,setDatTab] = useState(data)
+  const [editabDataCode,seteditabDataCode] = useState<number>();
+  
+  const handleEditClick = (event:Event, dataid: number) =>{
+    event.preventDefault();
+    seteditabDataCode(dataid);
+  }
   return (
+    
     <main >
+      <title>admin list</title>
     {/*  SIDE NAVIGATION BAR  */}
       <div className="contanier">
         <div className="BarGauche">Welcome, 
@@ -17,26 +31,37 @@ import  "./page.css";
       </div>
     {/*  SIDE NAVIGATION BAR  */}
     {/*  TABLE  */}
+    <form>
     <table>
       <thead>
         <tr>
         <th>CODE</th>
         <th>TITLE</th>
-        <th>AUTHOR</th>
-        <th>LINK TO SHOP</th>
+        <th>AUTHOR</th> 
+        <th>LINK</th>    
         <th>MODIFY</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>15</td>
-          <td>MY SYSTEM</td>
-          <td>NIMZO</td>
-          <td>http://facebook.com</td>
-          <td></td>
-        </tr>
+      <tbody>{data.map((data) =>( 
+        <Fragment>
+          {editabDataCode === data.CODE ? (
+            <EditableRow/>
+
+          ): (
+            <ReadyOnlyRow data={data}
+            handleEditClick={handleEditClick}
+            />
+          )}
+          
+         
+        </Fragment>     
+        
+      ) 
+      ) }
+       
       </tbody>
     </table>
+    </form>
     
 
     {/*  TABLE  */}

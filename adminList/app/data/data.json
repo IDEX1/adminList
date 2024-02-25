@@ -1,0 +1,25 @@
+[
+    {
+      "CODE": 1,
+      "TITLE": "Jenny Chan",
+      "AUTHOR": "3 waterfoot road",
+      "LINK":"amazon.com"
+      
+      
+    },
+    {
+      "CODE": 2,
+      "TITLE": "Raymond Edwards",
+      "AUTHOR": "99 blue acres",
+      "LINK":"amazon.com"
+      
+    },{
+      "CODE":3,
+      "TITLE": "my system",
+      "AUTHOR": "Aron NIMZO",
+      "LINK":"amazon.com"
+     
+      
+
+    }
+  ]
