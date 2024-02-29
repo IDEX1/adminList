@@ -7,11 +7,60 @@ import EditableRow from "./componet/EditableRow";
 
  function Home(){
   const [DataTab,setDatTab] = useState(data)
-  const [editabDataCode,seteditabDataCode] = useState<number>();
-  
-  const handleEditClick = (event:Event, dataid: number) =>{
+  const [editabDataCode,seteditabDataCode] = useState<any>();
+  const [editFormData,setEditFormData] = useState({
+    Title:"",
+    Author:"",
+    Link:""
+
+  })
+    const handleEditSubmitChange = (event: React.FormEvent) => {
+      event.preventDefault();
+      const newDataEdit = {
+        CODE: editabDataCode,
+        TITLE: editFormData.Title,
+        AUTHOR: editFormData.Author,
+        LINK: editFormData.Link
+      };
+
+      const newData = [...DataTab];
+      const index = DataTab.findIndex((data: any) => editabDataCode === data.CODE);
+      newData[index] = newDataEdit;
+      setDatTab(newData);
+      seteditabDataCode(null);
+  };
+  const handleEditFormChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    seteditabDataCode(dataid);
+  
+    const fieldName = event.target.name;
+    const fieldValue = event.target.value;
+  
+    
+    const newFormData = { ...editFormData, [fieldName]: fieldValue };
+    setEditFormData(newFormData);
+  };
+  const handleEditClick = (event:Event, data: any) =>{
+    event.preventDefault();
+    seteditabDataCode(data.CODE);
+    const FormValues = ({
+    Code:data.CODE,
+    Title:data.TITLE,
+    Author:data.AUTHOR,
+    Link:data.LINK
+
+    })
+    setEditFormData(FormValues);
+  }
+  const hanleCancelClick =()=>{
+    seteditabDataCode(null)
+  }
+  const handleDeleteClick=(dataCode:number)=>{
+    const newData = [...DataTab];
+    const index = newData.findIndex((data)=> data.CODE === dataCode);
+    newData.splice(index,1);
+    setDatTab(newData);
+   
+    
   }
   return (
     
@@ -31,7 +80,7 @@ import EditableRow from "./componet/EditableRow";
       </div>
     {/*  SIDE NAVIGATION BAR  */}
     {/*  TABLE  */}
-    <form>
+    <form onSubmit={handleEditSubmitChange} className="FORM-DISPLAY">
     <table>
       <thead>
         <tr>
@@ -42,14 +91,15 @@ import EditableRow from "./componet/EditableRow";
         <th>MODIFY</th>
         </tr>
       </thead>
-      <tbody>{data.map((data) =>( 
+      <tbody>{DataTab.map((data) =>( 
         <Fragment>
           {editabDataCode === data.CODE ? (
-            <EditableRow/>
+            <EditableRow editFormData={editFormData} handleEditFormChange={handleEditFormChange} hanleCancelClick={hanleCancelClick}/>
 
           ): (
             <ReadyOnlyRow data={data}
             handleEditClick={handleEditClick}
+            handleDeleteClick={handleDeleteClick}
             />
           )}
           
@@ -61,6 +111,7 @@ import EditableRow from "./componet/EditableRow";
        
       </tbody>
     </table>
+   
     </form>
     
 

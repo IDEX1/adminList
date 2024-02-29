@@ -5,7 +5,7 @@
 }
 /*---------------------*/
 :root{
-
+  
 
 }
 .contanier{
@@ -80,9 +80,7 @@
 table {
   border-collapse: collapse;
   width: 50%;
-  position: relative;
-  top: -570px;
-  left: 550px;
+ 
 }
 
 th,
@@ -105,4 +103,12 @@ td {
   color: #070F2B;
   background-color: white;
 }
+.FORM-DISPLAY{
+   justify-content: center; 
+    align-items: center;
+    position: relative;
+    top: -570px;
+    left: 550px;
+    
 
+}
