@@ -4,7 +4,7 @@ import  "./page.css";
 import data from "../app/data/data.json";
 import ReadyOnlyRow from "./componet/ReadOnlyRow";
 import EditableRow from "./componet/EditableRow";
-
+import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
 
  function Home(){
   const [boolChange,setboolChange] = useState(false);
@@ -23,6 +23,12 @@ import EditableRow from "./componet/EditableRow";
     LINK:""
 
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage] = useState(5); 
+  const indexOfLastRow = currentPage * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = DataTab.slice(indexOfFirstRow, indexOfLastRow);
+
     const handleEditSubmitChange = (event: React.FormEvent) => {
       event.preventDefault();
       const newDataEdit = {
@@ -31,6 +37,7 @@ import EditableRow from "./componet/EditableRow";
         AUTHOR: editFormData.Author,
         LINK: editFormData.Link
       };
+      DataTab.slice
 
       const newData = [...DataTab];
       const index = DataTab.findIndex((data: any) => editabDataCode === data.CODE);
@@ -100,6 +107,15 @@ import EditableRow from "./componet/EditableRow";
      }
      
   }
+  const handlePrevClick = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+  
+  const handleNextClick = () => {
+    setCurrentPage((prevPage) =>
+      Math.min(prevPage + 1, Math.ceil(DataTab.length / rowsPerPage))
+    );
+  };
   return (
     
     <main >
@@ -127,38 +143,43 @@ import EditableRow from "./componet/EditableRow";
     {/*-------- */}
     {/*  TABLE  */}
     <form onSubmit={handleEditSubmitChange} className="FORM-DISPLAY">
-    <table>
-      <thead>
-        <tr>
-        <th>CODE</th>
-        <th>TITLE</th>
-        <th>AUTHOR</th> 
-        <th>LINK</th>    
-        <th>MODIFY</th>
-        </tr>
-      </thead>
-      <tbody>
-      <Fragment>
-        
-          {DataTab.map((data) =>( 
-          <Fragment>
-            {editabDataCode === data.CODE ? (
-              <EditableRow editFormData={editFormData} handleEditFormChange={handleEditFormChange} hanleCancelClick={hanleCancelClick}/>
+      <table>
+        <thead>
+          <tr>
+          <th>CODE</th>
+          <th>TITLE</th>
+          <th>AUTHOR</th> 
+          <th>LINK</th>    
+          <th>MODIFY</th>
+          </tr>
+        </thead>
+        <tbody>
+        <Fragment>
+          
+            {currentRows.map((data) =>( 
+            <Fragment>
+              {editabDataCode === data.CODE ? (
+                <EditableRow editFormData={editFormData} handleEditFormChange={handleEditFormChange} hanleCancelClick={hanleCancelClick}/>
 
-            ): (
-              <ReadyOnlyRow data={data}
-              handleEditClick={handleEditClick}
-              handleDeleteClick={handleDeleteClick}
-              />
-            )}
-          </Fragment>      
-          ) 
-          ) }
-        
-      </Fragment>
-      </tbody>
-    </table>
-   
+              ): (
+                <ReadyOnlyRow data={data}
+                handleEditClick={handleEditClick}
+                handleDeleteClick={handleDeleteClick}
+                />
+              )}
+            </Fragment>      
+            ) 
+            ) }
+          
+        </Fragment>
+        </tbody>
+      </table>
+      <div className="pagination">
+      <RiArrowLeftSFill type="button" className="BUTTON0" onClick={handlePrevClick} />
+       
+      <RiArrowRightSFill type="button" className="BUTTON1" onClick={handleNextClick}/>   
+    </div>
+      <span className="SPAN-CURRENT-PAGE">{`Page ${currentPage}`}</span>  
     </form>
     
 

@@ -145,5 +145,20 @@ td {
   font-family:myfont;
  }
  
-  
-  
+ .pagination{
+    text-align: center;
+    font-size: 60px;
+    color: #535C91;
+ }
+  .pagination .BUTTON0:hover,.BUTTON1:hover{
+    color: #3a3d4f;
+    cursor: pointer;
+  }
+  .SPAN-CURRENT-PAGE{
+    display: flex;
+    text-align: center;
+    font-family:myfont;
+    justify-content: center; 
+    font-weight: bolder;
+    font-size: 18px;
+  }
