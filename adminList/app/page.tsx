@@ -5,15 +5,24 @@ import data from "../app/data/data.json";
 import ReadyOnlyRow from "./componet/ReadOnlyRow";
 import EditableRow from "./componet/EditableRow";
 
+
  function Home(){
-  const [DataTab,setDatTab] = useState(data)
+  const [boolChange,setboolChange] = useState(false);
+  const [DataTab,setDatTab] = useState(data);
+  const [dataSaveTab,setdataSaveTab] = useState(data);
   const [editabDataCode,seteditabDataCode] = useState<any>();
   const [editFormData,setEditFormData] = useState({
     Title:"",
     Author:"",
     Link:""
-
   })
+  const [dataSearch,setdataSearch] = useState({
+    CODE:0,
+    TITLE:"",
+    AUTHOR:"",
+    LINK:""
+
+  });
     const handleEditSubmitChange = (event: React.FormEvent) => {
       event.preventDefault();
       const newDataEdit = {
@@ -31,13 +40,13 @@ import EditableRow from "./componet/EditableRow";
   };
   const handleEditFormChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
-  
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
   
     
     const newFormData = { ...editFormData, [fieldName]: fieldValue };
     setEditFormData(newFormData);
+  
   };
   const handleEditClick = (event:Event, data: any) =>{
     event.preventDefault();
@@ -50,6 +59,7 @@ import EditableRow from "./componet/EditableRow";
 
     })
     setEditFormData(FormValues);
+   
   }
   const hanleCancelClick =()=>{
     seteditabDataCode(null)
@@ -61,6 +71,34 @@ import EditableRow from "./componet/EditableRow";
     setDatTab(newData);
    
     
+  }
+  const handleSearchOnChangeSearch =(event: React.ChangeEvent<HTMLInputElement>)=>{
+    event.preventDefault(); 
+    const valueT = event.target.value;
+    const index = DataTab.findIndex((data) => valueT === data.TITLE);
+    
+    if(index != -1 && valueT !="")
+     {
+      setdataSaveTab(DataTab);
+      const indexMax = DataTab.length;
+      const newTabData = [...DataTab];
+      newTabData[0] =  DataTab[index];
+      for(let i = 1 ; i < indexMax;i++)
+      {  
+          newTabData.splice(i);
+      }
+      setDatTab(newTabData);
+      setboolChange(true)
+     }
+     else if(valueT =="" && boolChange){
+      
+      
+      const index0 = dataSaveTab.findIndex((data) => data.CODE === DataTab[0].CODE);
+      dataSaveTab[index0] = DataTab[0];
+      setDatTab(dataSaveTab);
+      setboolChange(false)
+     }
+     
   }
   return (
     
@@ -79,6 +117,14 @@ import EditableRow from "./componet/EditableRow";
         </div>      
       </div>
     {/*  SIDE NAVIGATION BAR  */}
+    {/*BOOK LIST String*/}
+    <>
+       <div className="BOOK-LIST-STRING">Book List :</div>
+       <input type="text" className="BOOK-LIST-Search" placeholder="Search..." onChange={(event) => handleSearchOnChangeSearch(event)}>
+       </input>
+    </>
+   
+    {/*-------- */}
     {/*  TABLE  */}
     <form onSubmit={handleEditSubmitChange} className="FORM-DISPLAY">
     <table>
@@ -91,24 +137,25 @@ import EditableRow from "./componet/EditableRow";
         <th>MODIFY</th>
         </tr>
       </thead>
-      <tbody>{DataTab.map((data) =>( 
-        <Fragment>
-          {editabDataCode === data.CODE ? (
-            <EditableRow editFormData={editFormData} handleEditFormChange={handleEditFormChange} hanleCancelClick={hanleCancelClick}/>
-
-          ): (
-            <ReadyOnlyRow data={data}
-            handleEditClick={handleEditClick}
-            handleDeleteClick={handleDeleteClick}
-            />
-          )}
-          
-         
-        </Fragment>     
+      <tbody>
+      <Fragment>
         
-      ) 
-      ) }
-       
+          {DataTab.map((data) =>( 
+          <Fragment>
+            {editabDataCode === data.CODE ? (
+              <EditableRow editFormData={editFormData} handleEditFormChange={handleEditFormChange} hanleCancelClick={hanleCancelClick}/>
+
+            ): (
+              <ReadyOnlyRow data={data}
+              handleEditClick={handleEditClick}
+              handleDeleteClick={handleDeleteClick}
+              />
+            )}
+          </Fragment>      
+          ) 
+          ) }
+        
+      </Fragment>
       </tbody>
     </table>
    
