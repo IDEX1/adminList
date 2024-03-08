@@ -24,7 +24,7 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
 
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(5); 
+  const [rowsPerPage] = useState(11); 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = DataTab.slice(indexOfFirstRow, indexOfLastRow);
