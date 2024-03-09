@@ -6,30 +6,24 @@ import ReadyOnlyRow from "./componet/ReadOnlyRow";
 import EditableRow from "./componet/EditableRow";
 import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
 
- function Home(){
+ 
+function Home(){
   const [boolChange,setboolChange] = useState(false);
   const [DataTab,setDatTab] = useState(data);
   const [dataSaveTab,setdataSaveTab] = useState(data);
-  const [editabDataCode,seteditabDataCode] = useState<any>();
+  const [editabDataCode,seteditabDataCode] = useState();
   const [editFormData,setEditFormData] = useState({
     Title:"",
     Author:"",
     Link:""
   })
-  const [dataSearch,setdataSearch] = useState({
-    CODE:0,
-    TITLE:"",
-    AUTHOR:"",
-    LINK:""
-
-  });
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage] = useState(11); 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = DataTab.slice(indexOfFirstRow, indexOfLastRow);
 
-    const handleEditSubmitChange = (event: React.FormEvent) => {
+    const handleEditSubmitChange = (event) => {
       event.preventDefault();
       const newDataEdit = {
         CODE: editabDataCode,
@@ -40,12 +34,12 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
       DataTab.slice
 
       const newData = [...DataTab];
-      const index = DataTab.findIndex((data: any) => editabDataCode === data.CODE);
+      const index = DataTab.findIndex((data) => editabDataCode === data.CODE);
       newData[index] = newDataEdit;
       setDatTab(newData);
       seteditabDataCode(null);
   };
-  const handleEditFormChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleEditFormChange = (event) => {
     event.preventDefault();
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
@@ -55,7 +49,7 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
     setEditFormData(newFormData);
   
   };
-  const handleEditClick = (event:Event, data: any) =>{
+  const handleEditClick = (event, data) =>{
     event.preventDefault();
     seteditabDataCode(data.CODE);
     const FormValues = ({
@@ -71,7 +65,7 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
   const hanleCancelClick =()=>{
     seteditabDataCode(null)
   }
-  const handleDeleteClick=(dataCode:number)=>{
+  const handleDeleteClick=(dataCode)=>{
     const newData = [...DataTab];
     const index = newData.findIndex((data)=> data.CODE === dataCode);
     newData.splice(index,1);
@@ -79,7 +73,7 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
    
     
   }
-  const handleSearchOnChangeSearch =(event: React.ChangeEvent<HTMLInputElement>)=>{
+  const handleSearchOnChangeSearch =(event)=>{
     event.preventDefault(); 
     const valueT = event.target.value;
     const index = DataTab.findIndex((data) => valueT === data.TITLE);
@@ -119,8 +113,14 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
   return (
     
     <main >
+      
       <title>admin list</title>
-    {/*  SIDE NAVIGATION BAR  */}
+      {/*logo*/}
+      
+      <img  className="img-logo" ></img>
+      
+      {/*logo*/}
+     {/*  SIDE NAVIGATION BAR  */}
       <div className="contanier">
         <div className="BarGauche">Welcome, 
         <div className="BarGauche1">Admin!</div>
@@ -132,6 +132,7 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
             <div className="BarListSP"><span>LOGOUT</span></div>
         </div>      
       </div>
+      
     {/*  SIDE NAVIGATION BAR  */}
     {/*BOOK LIST String*/}
     <>
@@ -177,13 +178,14 @@ import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
       <div className="pagination">
       <RiArrowLeftSFill type="button" className="BUTTON0" onClick={handlePrevClick} />
        
-      <RiArrowRightSFill type="button" className="BUTTON1" onClick={handleNextClick}/>   
+      <RiArrowRightSFill type="button" className="BUTTON1" onClick={handleNextClick}/>
     </div>
       <span className="SPAN-CURRENT-PAGE">{`Page ${currentPage}`}</span>  
     </form>
     
 
     {/*  TABLE  */}
+   
     </main>
     );
 }

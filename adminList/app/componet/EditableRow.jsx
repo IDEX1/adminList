@@ -1,7 +1,7 @@
 import React from 'react'
 import "./ReadOnlyRow.css";
 import { RiSave3Line,RiArrowGoBackFill  } from "react-icons/ri";
-const EditableRow = ({editFormData,handleEditFormChange,hanleCancelClick}:{editFormData:any;handleEditFormChange:any;hanleCancelClick:any}) => {
+const EditableRow = (props) => {
     
     return (
     
@@ -11,8 +11,8 @@ const EditableRow = ({editFormData,handleEditFormChange,hanleCancelClick}:{editF
             type='Number' 
             placeholder='ENTER CODE..' 
             name='Code'
-            value={editFormData.Code}    
-            onChange={handleEditFormChange}
+            value={props.editFormData.Code}    
+            onChange={props.handleEditFormChange}
             required 
             ></input>
         </td>
@@ -21,8 +21,8 @@ const EditableRow = ({editFormData,handleEditFormChange,hanleCancelClick}:{editF
             type="text" 
             placeholder='ENTER TITLE..' 
             name='Title'
-            value={editFormData.Title} 
-            onChange={handleEditFormChange} 
+            value={props.editFormData.Title} 
+            onChange={props.handleEditFormChange} 
             required 
             ></input>
         </td><td>
@@ -30,8 +30,8 @@ const EditableRow = ({editFormData,handleEditFormChange,hanleCancelClick}:{editF
             type='text' 
             placeholder='ENTER AUTHOR..' 
             name='Author'
-            value={editFormData.Author} 
-            onChange={handleEditFormChange} 
+            value={props.editFormData.Author} 
+            onChange={props.handleEditFormChange} 
             required 
             ></input>
         </td><td>
@@ -39,14 +39,14 @@ const EditableRow = ({editFormData,handleEditFormChange,hanleCancelClick}:{editF
             type='text' 
             placeholder='ENTER LINK..' 
             name='Link'
-            value={editFormData.Link} 
-            onChange={handleEditFormChange} 
+            value={props.editFormData.Link} 
+            onChange={props.handleEditFormChange} 
             required 
             ></input>
         </td>
         <td className="BUTTON-MODIFY">
-            <button className="BUTTON-MODIFY-RiSave3Line" type='submit'><RiSave3Line/></button>
-            <RiArrowGoBackFill className="BUTTON-MODIFY-RiArrowGoBackFill" type='button' onClick={hanleCancelClick}></RiArrowGoBackFill>
+            <RiSave3Line className="BUTTON-MODIFY-RiSave3Line" type='submit'/>
+            <RiArrowGoBackFill className="BUTTON-MODIFY-RiArrowGoBackFill" type='button' onClick={props.hanleCancelClick}/>
         </td>
    </tr>
   );
