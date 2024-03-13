@@ -1,0 +1,15 @@
+.BUTTON-MODIFY{
+    display:flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+ .BUTTON-MODIFY-RiEdit2Fill,.BUTTON-MODIFY-RiDeleteBin6Line,.BUTTON-MODIFY-RiSave3Line,.BUTTON-MODIFY-RiArrowGoBackFill{
+    
+    font-size: 25px;
+    cursor: pointer;
+ }
+ .BUTTON-MODIFY-RiEdit2Fill:hover,.BUTTON-MODIFY-RiDeleteBin6Line:hover,.BUTTON-MODIFY-RiSave3Line:hover,.BUTTON-MODIFY-RiArrowGoBackFill:hover{
+    color: blue;
+    font-size: 25px;
+    cursor: pointer;
+ }
