@@ -18,9 +18,8 @@ body{
     
 }
 .loger-box {
-    transform: translate(30%,10%);
+    /*transform: translate(30%,10%);*/
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     height: 400px;
     width: 400px;
@@ -63,34 +62,27 @@ height: 100%;
   bottom: -17px;
   margin-top: 15px;
   outline: 0;
-
-
-
 .icon {
   position: absolute;
- 
-  
   left: 20px;
   bottom: 14px;
   font-size: 20px;
-  
 }
-
-
 }
 .form-box input {
     height: 50px;
     width: 95%;
     background-color: white;
-    
+    color: #000000;
     padding-left: 45px;
     margin-top: 8px;
-    font-size: 14px;
+    font-size: bold;
     font-weight: 300; 
     letter-spacing: 1px;
     border: 1px solid #cccccca7;
     border-radius: 25px;
     box-sizing: border-box;
+    font-family: myfont;
     
   }
   .form-box input:hover{
@@ -118,16 +110,13 @@ height: 100%;
   form{
     height: 520px;
     width: 700px;
-    background-color: rgba(255,255,255,0.4);
-    
+    background-color: rgba(255, 255, 255, 0.55);
     position: absolute;
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
     border-radius: 25px;
-    
-    
-    
+    box-shadow: black;
     padding: 50px 35px;
 }
 form *{
@@ -146,14 +135,14 @@ form *{
 
 }
 .loger-box .register h4 a{
-    color: rgb(0, 0, 0);
-    font-family: myfont;
+     color: rgb(76, 21, 255);
+     font-family: myfont;
     
     font-weight: bolder;
    
   }
   .loger-box .register h4 a:hover{
-    color: rgb(76, 21, 255);
+    color: rgb(59, 1, 251);
     
    
   }
