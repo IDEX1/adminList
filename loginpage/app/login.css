@@ -110,13 +110,13 @@ height: 100%;
   form{
     height: 520px;
     width: 700px;
-    background-color: rgba(255, 255, 255, 0.55);
+    background-color: rgba(255, 255, 255, 0.57);
     position: absolute;
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
     border-radius: 25px;
-    box-shadow: black;
+    box-shadow:0 0 100px rgba(84, 78, 78, 1);
     padding: 50px 35px;
 }
 form *{
@@ -135,14 +135,14 @@ form *{
 
 }
 .loger-box .register h4 a{
-     color: rgb(76, 21, 255);
+     color: rgb(118, 87, 222);
      font-family: myfont;
     
-    font-weight: bolder;
+     font-weight: bolder;
    
   }
   .loger-box .register h4 a:hover{
-    color: rgb(59, 1, 251);
+    color: rgb(60, 0, 255);
     
    
   }

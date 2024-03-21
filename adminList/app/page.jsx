@@ -1,7 +1,7 @@
 'use client';
 import React, { useState , Fragment,useEffect} from "react";
 import  "./page.css";
-import data from "../app/data/data.json";
+//import data from "../app/data/data.json";
 import ReadyOnlyRow from "./componet/ReadOnlyRow";
 import EditableRow from "./componet/EditableRow";
 import { RiArrowLeftSFill,RiArrowRightSFill  } from "react-icons/ri";
@@ -16,7 +16,7 @@ function Home(){
     .catch(err => console.log(err))
   
 })
-  const [dataSaveTab,setdataSaveTab] = useState(data);
+  const [dataSaveTab,setdataSaveTab] = useState([]);
   const [editabDataCode,seteditabDataCode] = useState();
   const [editFormData,setEditFormData] = useState({
     Title:"",
@@ -27,7 +27,9 @@ function Home(){
   const [rowsPerPage] = useState(11); 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = DataTab.slice(indexOfFirstRow, indexOfLastRow);
+  const [currentRows,setCurrentRows] = useState(DataTab.slice(indexOfFirstRow, indexOfLastRow));
+  
+  //let currentRows = DataTab.slice(indexOfFirstRow, indexOfLastRow);
   
     const handleEditSubmitChange = (event) => { //edit function
       event.preventDefault();
@@ -42,10 +44,7 @@ function Home(){
         console.log("updated")
       }).catch(err => console.log("err"+err))
 
-      /*const newData = [...DataTab];
-      const index = DataTab.findIndex((data) => editabDataCode === data.CODE);
-      newData[index] = newDataEdit;
-      setDatTab(newData);*/
+      
       seteditabDataCode(null);
   }
   const handleEditFormChange = (event) => {
@@ -75,7 +74,7 @@ function Home(){
     seteditabDataCode(null)
   }
   const handleDeleteClick = async (CODE) => {
-  console.log(CODE);
+ 
 
   try {
     await axios.delete('http://localhost:8081/delete/', {
@@ -86,34 +85,21 @@ function Home(){
   }
 };
 
-  const handleSearchOnChangeSearch =(event)=>{
-    event.preventDefault(); 
-    const valueT = event.target.value;
-    const index = DataTab.findIndex((data) => valueT === data.TITLE);
+const handleSearchOnChangeSearch = (event) => {
+  event.preventDefault();
+  const searchQuery = event.target.value.toLowerCase();
+
+ 
+  const filteredData = DataTab.filter((item) => {
     
-    if(index != -1 && valueT !="")
-     {
-      setdataSaveTab(DataTab);
-      const indexMax = DataTab.length;
-      const newTabData = [...DataTab];
-      newTabData[0] =  DataTab[index];
-      for(let i = 1 ; i < indexMax;i++)
-      {  
-          newTabData.splice(i);
-      }
-      setDatTab(newTabData);
-      setboolChange(true)
-     }
-     else if(valueT =="" && boolChange){
-      
-      
-      const index0 = dataSaveTab.findIndex((data) => data.CODE === DataTab[0].CODE);
-      dataSaveTab[index0] = DataTab[0];
-      setDatTab(dataSaveTab);
-      setboolChange(false)
-     }
-     
-  }
+    return (
+      item.TITLE.toLowerCase().includes(searchQuery) 
+    );
+  });
+  setCurrentRows(filteredData);
+  setCurrentPage(1);
+};
+
   const handlePrevClick = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
@@ -128,6 +114,7 @@ function Home(){
     <main >
       
       <title>admin list</title>
+      
       {/*logo*/}
       
       <img  className="img-logo" ></img>
