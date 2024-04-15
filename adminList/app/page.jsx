@@ -10,12 +10,7 @@ import axios from 'axios'
 function Home(){
   const [boolChange,setboolChange] = useState(false);
   const [DataTab,setDatTab] = useState([]);
-  useEffect(()=>{
-    axios.get('http://localhost:8081/') 
-    .then(res => setDatTab(res.data))
-    .catch(err => console.log(err))
   
-})
   const [dataSaveTab,setdataSaveTab] = useState([]);
   const [editabDataCode,seteditabDataCode] = useState();
   const [editFormData,setEditFormData] = useState({
@@ -27,10 +22,19 @@ function Home(){
   const [rowsPerPage] = useState(11); 
   const indexOfLastRow = currentPage * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const [currentRows,setCurrentRows] = useState(DataTab.slice(indexOfFirstRow, indexOfLastRow));
+  const [currentRows,setCurrentRows] = useState([]);
   
   //let currentRows = DataTab.slice(indexOfFirstRow, indexOfLastRow);
-  
+  useEffect(() => {
+    axios.get('http://localhost:8081/')
+      .then(res => {
+        setDatTab(res.data);
+        const indexOfLastRow = currentPage * rowsPerPage;
+        const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+        setCurrentRows(res.data.slice(indexOfFirstRow, indexOfLastRow));
+      })
+      .catch(err => console.log(err))
+  }, [currentPage, rowsPerPage,editabDataCode]);
     const handleEditSubmitChange = (event) => { //edit function
       event.preventDefault();
       
@@ -74,16 +78,25 @@ function Home(){
     seteditabDataCode(null)
   }
   const handleDeleteClick = async (CODE) => {
- 
-
   try {
-    await axios.delete('http://localhost:8081/delete/', {
-      data: { CODE }  
-    });
+    // Send delete request to your API endpoint
+    await axios.delete('http://localhost:8081/delete/', { data: { CODE } });
+    
+    // Filter out the element with the matching CODE
+    const newDataTab = DataTab.filter(item => item.CODE !== CODE);
+    
+    // Update the state with the new array
+    setDatTab(newDataTab);
+    
+    // Optionally, you can update currentRows as well
+    const indexOfLastRow = currentPage * rowsPerPage;
+    const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+    setCurrentRows(newDataTab.slice(indexOfFirstRow, indexOfLastRow));
   } catch (err) {
     console.log(err);
   }
 };
+
 
 const handleSearchOnChangeSearch = (event) => {
   event.preventDefault();
