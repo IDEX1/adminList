@@ -10,12 +10,12 @@ const db = mysql.createConnection({
     host:"localhost",
     user:"projectUser",
     password :"",
-    database:"myschema"
+    database:"sys"
 })
 
 app.get("/",(req,res) =>{
     
-    const sql = "SELECT * FROM myschema.books";
+    const sql = "SELECT * FROM sys.books";
     db.query(sql,(err,data)=>{
         if(err) return res.json("Error" + err);
         return res.json(data);
@@ -25,7 +25,7 @@ app.get("/",(req,res) =>{
 })
 app.put('/update/', (req, res) => {
     
-    const sql = "UPDATE books SET `TITLE` = ?, `AUTHOR` = ?, `LINK` = ? WHERE `CODE` = ?";
+    const sql = "UPDATE sys.books SET `TITLE` = ?, `AUTHOR` = ?, `LINK` = ? WHERE `CODE` = ?";
     const values = [
         req.body.TITLE,
         req.body.AUTHOR,

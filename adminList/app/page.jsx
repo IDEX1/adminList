@@ -79,16 +79,16 @@ function Home(){
   }
   const handleDeleteClick = async (CODE) => {
   try {
-    // Send delete request to your API endpoint
+   
     await axios.delete('http://localhost:8081/delete/', { data: { CODE } });
     
-    // Filter out the element with the matching CODE
+  
     const newDataTab = DataTab.filter(item => item.CODE !== CODE);
     
-    // Update the state with the new array
+ 
     setDatTab(newDataTab);
     
-    // Optionally, you can update currentRows as well
+
     const indexOfLastRow = currentPage * rowsPerPage;
     const indexOfFirstRow = indexOfLastRow - rowsPerPage;
     setCurrentRows(newDataTab.slice(indexOfFirstRow, indexOfLastRow));
@@ -98,21 +98,22 @@ function Home(){
 };
 
 
+
 const handleSearchOnChangeSearch = (event) => {
   event.preventDefault();
   const searchQuery = event.target.value.toLowerCase();
-
- 
+  
   const filteredData = DataTab.filter((item) => {
-    
-    return (
-      item.TITLE.toLowerCase().includes(searchQuery) 
-    );
+    // Add null check for item and item.TITLE
+    return item && item.TITLE && item.TITLE.toLowerCase().includes(searchQuery);
   });
+  
+  console.log(filteredData);
   setCurrentRows(filteredData);
   setCurrentPage(1);
 };
 
+  
   const handlePrevClick = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
