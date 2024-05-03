@@ -6,13 +6,13 @@ const ReadyOnlyRow =(props ) =>{
     return(
         
         <tr>
-            <td>{props.data.CODE}</td>
-            <td>{props.data.TITLE}</td>
-            <td>{props.data.AUTHOR}</td>
-            <td>{props.data.LINK}</td>
+            <td>{props.data.bookID}</td>
+            <td>{props.data.title}</td>
+            <td>{props.data.auth_Name}</td>
+            <td>{props.data.linkShop}</td>
             <td className="BUTTON-MODIFY">
                 <RiEdit2Fill className="BUTTON-MODIFY-RiEdit2Fill" type="button" onClick={(event)=> props.handleEditClick(event,props.data)}/>
-                <RiDeleteBin6Line className="BUTTON-MODIFY-RiDeleteBin6Line" type="button" onClick={()=>props.handleDeleteClick(props.data.CODE)}/>
+                <RiDeleteBin6Line className="BUTTON-MODIFY-RiDeleteBin6Line" type="button" onClick={()=>props.handleDeleteClick(props.data.bookID)}/>
             </td>
         </tr>
     );

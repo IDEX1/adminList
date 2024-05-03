@@ -3,6 +3,7 @@ import "./ReadOnlyRow.css";
 import { RiSave3Line,RiArrowGoBackFill  } from "react-icons/ri";
 const EditableRow = (props) => {
     
+
     return (
     
     <tr>
@@ -10,8 +11,8 @@ const EditableRow = (props) => {
             <input
             type='Number' 
             placeholder='ENTER CODE..' 
-            name='Code'
-            value={props.editFormData.Code}    
+            name='bookID'
+            value={props.editFormData.bookID}    
             onChange={props.handleEditFormChange}
             required 
             ></input>
@@ -20,17 +21,17 @@ const EditableRow = (props) => {
             <input
             type="text" 
             placeholder='ENTER TITLE..' 
-            name='Title'
-            value={props.editFormData.Title} 
+            name='title'
+            value={props.editFormData.title} 
             onChange={props.handleEditFormChange} 
             required 
             ></input>
         </td><td>
             <input
             type='text' 
-            placeholder='ENTER AUTHOR..' 
-            name='Author'
-            value={props.editFormData.Author} 
+            placeholder='ENTER ..' 
+            name='auth_Name'
+            value={props.editFormData.auth_Name} 
             onChange={props.handleEditFormChange} 
             required 
             ></input>
@@ -38,8 +39,8 @@ const EditableRow = (props) => {
             <input
             type='text' 
             placeholder='ENTER LINK..' 
-            name='Link'
-            value={props.editFormData.Link} 
+            name='linkShop'
+            value={props.editFormData.linkShop} 
             onChange={props.handleEditFormChange} 
             required 
             ></input>

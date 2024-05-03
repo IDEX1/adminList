@@ -14,9 +14,9 @@ function Home(){
   const [dataSaveTab,setdataSaveTab] = useState([]);
   const [editabDataCode,seteditabDataCode] = useState();
   const [editFormData,setEditFormData] = useState({
-    Title:"",
-    Author:"",
-    Link:""
+    title:"",
+    auth_Name:"",
+    linkShop:""
   })
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage] = useState(11); 
@@ -38,12 +38,12 @@ function Home(){
     const handleEditSubmitChange = (event) => { //edit function
       event.preventDefault();
       
-        const CODE =  editabDataCode;
-        const TITLE =  editFormData.Title;
-        const AUTHOR =  editFormData.Author;
-        const LINK =  editFormData.Link
+        const bookID =  editabDataCode;
+        const title =  editFormData.title;
+        const auth_Name =  editFormData.auth_Name;
+        const linkShop =  editFormData.linkShop;
       
-      axios.put('http://localhost:8081/update/',{CODE,TITLE,AUTHOR,LINK})
+      axios.put('http://localhost:8081/update/',{bookID,title,auth_Name,linkShop})
       .then(res =>{
         console.log("updated")
       }).catch(err => console.log("err"+err))
@@ -55,7 +55,7 @@ function Home(){
     event.preventDefault();
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
-  
+    
     
     const newFormData = { ...editFormData, [fieldName]: fieldValue };
     setEditFormData(newFormData);
@@ -63,27 +63,28 @@ function Home(){
   };
   const handleEditClick = (event, data) =>{
     event.preventDefault();
-    seteditabDataCode(data.CODE);
+    seteditabDataCode(data.bookID);
     const FormValues = ({
-    Code:data.CODE,
-    Title:data.TITLE,
-    Author:data.AUTHOR,
-    Link:data.LINK
+    bookID:data.bookID,
+    title:data.title,
+    auth_Name:data.auth_Name,
+    linkShop:data.linkShop
 
     })
+   
     setEditFormData(FormValues);
    
   }
   const hanleCancelClick =()=>{
     seteditabDataCode(null)
   }
-  const handleDeleteClick = async (CODE) => {
+  const handleDeleteClick = async (bookID) => {
   try {
    
-    await axios.delete('http://localhost:8081/delete/', { data: { CODE } });
+    await axios.delete('http://localhost:8081/delete/', { data: { bookID } });
     
   
-    const newDataTab = DataTab.filter(item => item.CODE !== CODE);
+    const newDataTab = DataTab.filter(item => item.bookID !== bookID);
     
  
     setDatTab(newDataTab);
@@ -105,7 +106,7 @@ const handleSearchOnChangeSearch = (event) => {
   
   const filteredData = DataTab.filter((item) => {
     // Add null check for item and item.TITLE
-    return item && item.TITLE && item.TITLE.toLowerCase().includes(searchQuery);
+    return item && item.title && item.title.toLowerCase().includes(searchQuery);
   });
   
   console.log(filteredData);
@@ -173,7 +174,7 @@ const handleSearchOnChangeSearch = (event) => {
           
             {currentRows.map((data) =>( 
             <Fragment>
-              {editabDataCode === data.CODE ? (
+              {editabDataCode === data.bookID ? (
                 <EditableRow editFormData={editFormData} handleEditFormChange={handleEditFormChange} hanleCancelClick={hanleCancelClick}/>
 
               ): (

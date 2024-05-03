@@ -15,7 +15,8 @@ const db = mysql.createConnection({
 
 app.get("/",(req,res) =>{
     
-    const sql = "SELECT * FROM sys.books";
+    const sql = "SELECT b.bookID, b.title, a.auth_Name, b.linkShop,a.authorID FROM sys.Book AS b JOIN sys.AuthorBook AS ab ON b.bookID = ab.bookID JOIN sys.Author AS a ON ab.authorID = a.authorID";
+    
     db.query(sql,(err,data)=>{
         if(err) return res.json("Error" + err);
         return res.json(data);
@@ -25,12 +26,13 @@ app.get("/",(req,res) =>{
 })
 app.put('/update/', (req, res) => {
     
-    const sql = "UPDATE sys.books SET `TITLE` = ?, `AUTHOR` = ?, `LINK` = ? WHERE `CODE` = ?";
+    const sql = "UPDATE sys.book AS b JOIN sys.AuthorBook AS ab ON b.bookID = ab.bookID JOIN sys.Author AS a ON ab.authorID = a.authorID SET b.title = ?, a.auth_Name = ?, b.linkShop = ? WHERE b.bookID = ?";
+    
     const values = [
-        req.body.TITLE,
-        req.body.AUTHOR,
-        req.body.LINK,
-        req.body.CODE
+        req.body.title,
+        req.body.auth_Name,
+        req.body.linkShop,
+        req.body.bookID
     ];
     db.query(sql, values, (err, data) => {
         if (err) return res.json("Error" + err);
@@ -38,11 +40,12 @@ app.put('/update/', (req, res) => {
     });
 });
 app.delete('/delete/', (req, res) => {
-  const sql = "DELETE FROM `books` WHERE (`CODE` = ?)";
-  const Code = req.body.CODE;  
-  console.log(Code);
+  const sql = "DELETE FROM sys.book WHERE (bookID = ?)";
 
-  db.query(sql, [Code], (err, data) => {
+  const bookID = req.body.bookID;  
+  console.log(bookID);
+
+  db.query(sql, [bookID], (err, data) => {
     if (err) return res.json("Error" + err);
     return res.json(data);
   });
